@@ -1,8 +1,5 @@
 'use client'
 
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import {
@@ -12,20 +9,15 @@ import {
   FormItem,
   FormMessage
 } from '@/components/ui/form'
-import { formSchema } from '@/lib/formValidator'
+
 import Dropdown from './Dropdown'
 import { Textarea } from '../ui/textarea'
 import { FileUploader } from './FileUploader'
-import { useState } from 'react'
-import { eventDefaultValues } from '@/constant'
 import Image from 'next/image'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { Checkbox } from '../ui/checkbox'
-import { useUploadThing } from '@/lib/uploadthing'
-import { useRouter } from 'next/navigation'
-import { createEvent } from '@/lib/actions/event.actions'
-import { handleError } from '@/lib/utils'
+import useSubmitForm from '../../hooks/useSubmitForm'
 
 type EventFormProps = {
   userId: string
@@ -33,44 +25,7 @@ type EventFormProps = {
 }
 
 const EventForm = ({ userId, type }: EventFormProps) => {
-  const [files, setFiles] = useState<File[]>([])
-  const router = useRouter()
-
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: eventDefaultValues
-  })
-
-  const { startUpload } = useUploadThing('imageUploader')
-
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    let uploadImageUrl = values.imageUrl
-
-    if (!files.length) return
-
-    const uploadedImage = await startUpload(files)
-    if (!uploadedImage) return
-
-    uploadImageUrl = uploadedImage[0].url
-
-    if (type === 'Create') {
-      try {
-        const newEvent = await createEvent({
-          event: { ...values, imageUrl: uploadImageUrl },
-          userId,
-          path: '/profile'
-        })
-
-        if (newEvent) {
-          form.reset()
-          console.log('onSubmit ~ newEvent =>', newEvent)
-          // router.push(`/events/${newEvent._id}`)
-        }
-      } catch (error) {
-        handleError(error)
-      }
-    }
-  }
+  const { form, onSubmit, setFiles } = useSubmitForm({ userId, type })
 
   return (
     <Form {...form}>

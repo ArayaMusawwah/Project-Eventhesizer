@@ -31,8 +31,8 @@ const EventSchema = new Schema({
   price: { type: String },
   isFree: { type: Boolean, default: false },
   url: { type: String },
-  categoryId: { type: Types.ObjectId, ref: 'Category' },
-  organizerId: { type: Types.ObjectId, ref: 'User' }
+  category: { type: Types.ObjectId, ref: 'Category' },
+  organizer: { type: Types.ObjectId, ref: 'User' }
 })
 
 const Event = models.Event || model('Event', EventSchema)
