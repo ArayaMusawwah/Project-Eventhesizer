@@ -14,7 +14,7 @@ export const formSchema = z.object({
   startDateTime: z.date(),
   endDateTime: z.date(),
   categoryId: z.string(),
-  price: z.string().min(3, 'Price is required'),
+  price: z.string(),
   isFree: z.boolean().default(false),
   url: z.string().url()
 })

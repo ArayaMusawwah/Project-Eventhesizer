@@ -10,7 +10,7 @@ import Image from 'next/image'
 type FileUploaderProps = {
   onFieldChange: (url: string) => void
   imageUrl: string
-  setFiles: Dispatch<SetStateAction<File[] | undefined>>
+  setFiles: Dispatch<SetStateAction<File[]>>
 }
 
 export function FileUploader({
