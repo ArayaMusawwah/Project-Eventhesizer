@@ -1,8 +1,17 @@
+import Collection from '@/components/shared/Collection'
 import { Button } from '@/components/ui/button'
+import { getAllEvents } from '@/lib/actions/event.actions'
 import Image from 'next/image'
 import Link from 'next/link'
 
-const page = () => {
+const Homepage = async () => {
+  const events = await getAllEvents({
+    query: '',
+    category: '',
+    page: 1,
+    limit: 6
+  })
+
   return (
     <>
       <section className="bg-primary-50 bg-dotted-pattern bg-contain py-5 md:py-10">
@@ -38,10 +47,18 @@ const page = () => {
           Trusted by <br /> Thousands of Events
         </h2>
         <div className="flex w-full flex-col gap-5 md:flex-row">
-          Search CategoryFilter
+          <Collection
+            data={events?.data}
+            emptyTitle="No events found"
+            emptyStateSubtext="come back later"
+            collectionType="All_Events"
+            limit={6}
+            page={1}
+            totalPages={2}
+          />
         </div>
       </section>
     </>
   )
 }
-export default page
+export default Homepage
