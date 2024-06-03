@@ -12,8 +12,8 @@ export interface IEvent extends Document {
   price?: string
   isFree: boolean
   url?: string
-  categoryId: { _id: Types.ObjectId | string; name: string }
-  organizerId: {
+  category: { _id: Types.ObjectId | string; name: string }
+  organizer: {
     _id: Types.ObjectId | string
     firstName: string
     lastName: String
