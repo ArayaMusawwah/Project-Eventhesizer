@@ -11,8 +11,8 @@ export const formSchema = z.object({
     .min(3, 'Location is required')
     .max(300, 'Location must be less than 400 characters'),
   imageUrl: z.string(),
-  startDateTime: z.date(),
-  endDateTime: z.date(),
+  startDate: z.date(),
+  endDate: z.date(),
   categoryId: z.string(),
   price: z.string(),
   isFree: z.boolean().default(false),

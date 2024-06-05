@@ -18,14 +18,22 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { Checkbox } from '../ui/checkbox'
 import useSubmitForm from '../../hooks/useSubmitForm'
+import { IEvent } from '@/lib/database/models/event.model'
 
 type EventFormProps = {
   userId: string
   type: 'Create' | 'Update'
+  event?: IEvent
+  eventId?: string
 }
 
-const EventForm = ({ userId, type }: EventFormProps) => {
-  const { form, onSubmit, setFiles } = useSubmitForm({ userId, type })
+const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
+  const { form, onSubmit, setFiles } = useSubmitForm({
+    userId,
+    type,
+    event,
+    eventId
+  })
 
   return (
     <Form {...form}>
@@ -39,7 +47,7 @@ const EventForm = ({ userId, type }: EventFormProps) => {
             control={form.control}
             name="title"
             render={({ field }) => (
-              <FormItem className="w-full ">
+              <FormItem className="w-full">
                 <FormControl>
                   <Input
                     placeholder="Event Title"
@@ -96,6 +104,9 @@ const EventForm = ({ userId, type }: EventFormProps) => {
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl className="h-72">
+
+                  {/* TODO: FIX this when updating */}
+                  
                   <FileUploader
                     onFieldChange={field.onChange}
                     imageUrl={field.value}
@@ -140,7 +151,7 @@ const EventForm = ({ userId, type }: EventFormProps) => {
           {/* Start Time */}
           <FormField
             control={form.control}
-            name="startDateTime"
+            name="startDate"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl className="h-72">
@@ -172,7 +183,7 @@ const EventForm = ({ userId, type }: EventFormProps) => {
           {/* End Time */}
           <FormField
             control={form.control}
-            name="endDateTime"
+            name="endDate"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl className="h-72">
