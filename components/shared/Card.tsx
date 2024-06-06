@@ -40,7 +40,7 @@ const Card = ({
         </div>
       )}
 
-      <div className="flex min-h-[230px] flex-col gap-3 p-5 md:gap-4">
+      <div className="flex min-h-[230px] flex-col justify-around gap-3 p-5 md:gap-4">
         {!hidePrice && (
           <div className="flex gap-2">
             <span className="p-semibold-14 w-min rounded-full bg-green-100 px-4 py-1 text-green-600">
@@ -64,15 +64,17 @@ const Card = ({
         </Link>
 
         <div className="flex-between w-full">
-          <p className="p-medimmu-14 md:p-medium-16 text-grey-600">
+          <p className="p-medium-14 text-grey-600">
             {event.organizer.firstName} {event.organizer.lastName}
           </p>
 
           {hasOrderLink && (
             <Link href={`/orders?eventId=${event._id}`} className="flex gap-2">
-              <p className="text-primary-500">Order Details</p>
+              <p className="p-medium-14 md:p-medium-16 text-primary-500">
+                Order Details
+              </p>
               <Image
-                src={'/assets/icons/arrow-right.svg'}
+                src={'/assets/icons/arrow.svg'}
                 alt="search"
                 width={10}
                 height={10}
