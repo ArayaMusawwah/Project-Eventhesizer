@@ -1,10 +1,12 @@
+import CheckoutButton from '@/components/shared/CheckoutButton'
 import Collection from '@/components/shared/Collection'
 import {
   getEventById,
   getRelatedEventsByCategory
 } from '@/lib/actions/event.actions'
+import { IEvent } from '@/lib/database/models/event.model'
 import { formatDateTime } from '@/lib/utils'
-import { Event, SearchParamProps } from '@/types'
+import { SearchParamProps } from '@/types'
 import Image from 'next/image'
 import React from 'react'
 
@@ -12,9 +14,9 @@ const DetailEventPage = async ({
   params: { id },
   searchParams
 }: SearchParamProps) => {
-  const event: Event = await getEventById(id)
+  const event: IEvent = await getEventById(id)
   const relatedEvents = await getRelatedEventsByCategory({
-    categoryId: event.category._id,
+    categoryId: event.category._id as string,
     eventId: event._id,
     page: searchParams.page as string
   })
@@ -55,6 +57,7 @@ const DetailEventPage = async ({
             </div>
 
             {/* Checkout Button */}
+            <CheckoutButton event={event} />
 
             <div className="flex flex-col gap-5">
               <div className="flex gap-2 md:gap-3">

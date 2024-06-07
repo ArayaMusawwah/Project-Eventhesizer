@@ -26,7 +26,7 @@ const ProfilePage = async () => {
         <Collection
           data={events?.data}
           emptyTitle="No events tickets purchased yet"
-          emptyStateSubtext="No worres - plenty of exciting events to explore"
+          emptyStateSubtext="No worries - plenty of exciting events to explore"
           collectionType="My_Tickets"
           limit={6}
           page={1}
