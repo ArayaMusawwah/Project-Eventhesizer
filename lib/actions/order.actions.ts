@@ -9,9 +9,7 @@ import {
 import { ObjectId } from "mongodb"
 import Stripe from "stripe"
 import { connectToDatabase } from "../database"
-import Event from "../database/models/event.model"
 import Order from "../database/models/order.model"
-import User from "../database/models/user.model"
 import { handleError } from "../utils"
 
 export const checkoutOrder = async (order: CheckoutOrderParams) => {
@@ -54,8 +52,8 @@ export const createOrder = async (order: CreateOrderParams) => {
 
     const newOrder = await Order.create({
       ...order,
-      buyerId: order.buyerId,
-      eventId: order.eventId
+      event: order.eventId,
+      buyer: order.buyerId
     })
 
     return JSON.parse(JSON.stringify(newOrder))
@@ -144,10 +142,10 @@ export async function getOrdersByUser({
       .limit(limit)
       .populate({
         path: "event",
-        model: Event,
+        model: "Event",
         populate: {
           path: "organizer",
-          model: User,
+          model: "User",
           select: "_id firstName lastName"
         }
       })

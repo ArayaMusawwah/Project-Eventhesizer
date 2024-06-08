@@ -1,13 +1,13 @@
-import Collection from '@/components/shared/Collection'
-import { Button } from '@/components/ui/button'
-import { getAllEvents } from '@/lib/actions/event.actions'
-import Image from 'next/image'
-import Link from 'next/link'
+import Collection from "@/components/shared/Collection"
+import { Button } from "@/components/ui/button"
+import { getAllEvents } from "@/lib/actions/event.actions"
+import Image from "next/image"
+import Link from "next/link"
 
 const Homepage = async () => {
   const events = await getAllEvents({
-    query: '',
-    category: '',
+    query: "",
+    category: "",
     page: 1,
     limit: 6
   })
@@ -24,13 +24,13 @@ const Homepage = async () => {
               Book and learn helpful tips from 3,168+ mentors in world-class
               companies with our global community.
             </p>
-            <Button size={'lg'} asChild className="button w-full sm:w-fit">
-              <Link href={'#events'}>Explore now</Link>
+            <Button size={"lg"} asChild className="button w-full sm:w-fit">
+              <Link href={"#events"}>Explore now</Link>
             </Button>
           </div>
 
           <Image
-            src={'/assets/images/hero.png'}
+            src={"/assets/images/hero.png"}
             alt="hero"
             width={1000}
             height={1000}

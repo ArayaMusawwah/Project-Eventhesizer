@@ -1,5 +1,5 @@
-import { IEvent } from '@/lib/database/models/event.model'
-import Card from './Card'
+import { IEvent } from "@/lib/database/models/event.model"
+import Card from "./Card"
 
 const Collection = ({
   data,
@@ -14,7 +14,7 @@ const Collection = ({
   data: IEvent[]
   emptyTitle: string
   emptyStateSubtext: string
-  collectionType: 'All_Events' | 'Events_Organized' | 'My_Tickets'
+  collectionType: "All_Events" | "Events_Organized" | "My_Tickets"
   limit: number
   page: number | string
   totalPages?: number
@@ -22,10 +22,12 @@ const Collection = ({
 }) => {
   return data.length > 0 ? (
     <div className="flex flex-col items-center gap-10">
-      <ul className="grid w-full grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:gap-10">
+      <ul
+        className={`grid w-full grid-cols-1 gap-5 sm:grid-cols-2 xl:gap-10 ${collectionType === "All_Events" ? "lg:grid-cols-4" : "lg:grid-cols-3"} `}
+      >
         {data.map((event: IEvent) => {
-          const hasOrderLink = collectionType === 'Events_Organized'
-          const hidePrice = collectionType === 'My_Tickets'
+          const hasOrderLink = collectionType === "Events_Organized"
+          const hidePrice = collectionType === "My_Tickets"
 
           return (
             <li className="flex justify-center" key={event._id}>
