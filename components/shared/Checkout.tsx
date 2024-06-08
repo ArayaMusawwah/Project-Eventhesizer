@@ -1,11 +1,15 @@
+"use client"
+
 import { checkoutOrder } from "@/lib/actions/order.actions"
 import { IEvent } from "@/lib/database/models/event.model"
 import { loadStripe } from "@stripe/stripe-js"
-import { useEffect } from "react"
+import { useRouter } from "next/navigation"
+import { FormEvent, useEffect } from "react"
 import { Button } from "../ui/button"
 
 loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
 const Checkout = ({ event, userId }: { event: IEvent; userId: string }) => {
+  const router = useRouter()
   useEffect(() => {
     // Check to see if this is a redirect back from Checkout
     const query = new URLSearchParams(window.location.search)
@@ -20,7 +24,8 @@ const Checkout = ({ event, userId }: { event: IEvent; userId: string }) => {
     }
   }, [])
 
-  const onCheckout = async () => {
+  const onCheckout = async (e: FormEvent) => {
+    e.preventDefault()
     const order = {
       eventTitle: event.title,
       eventId: event._id,
@@ -28,7 +33,8 @@ const Checkout = ({ event, userId }: { event: IEvent; userId: string }) => {
       isFree: event.isFree,
       buyerId: userId
     }
-    await checkoutOrder(order)
+    const url = await checkoutOrder(order)
+    router.push(url!)
   }
 
   return (
