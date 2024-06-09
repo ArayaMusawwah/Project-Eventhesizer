@@ -6,6 +6,8 @@ import { getAllEvents } from "@/lib/actions/event.actions"
 import { SearchParamProps } from "@/types"
 import Image from "next/image"
 import Link from "next/link"
+import { Suspense } from "react"
+import Loading from "./loading"
 
 const Homepage = async ({ searchParams }: SearchParamProps) => {
   const page = Number(searchParams?.page) || 1
@@ -58,14 +60,16 @@ const Homepage = async ({ searchParams }: SearchParamProps) => {
         <CategoryFilter />
 
         <div className={`flex w-full flex-col gap-5 md:flex-row`}>
-          <Collection
-            data={events?.data}
-            emptyTitle="No events found"
-            emptyStateSubtext="come back later"
-            collectionType="All_Events"
-            page={page}
-            totalPages={events?.totalPages}
-          />
+          <Suspense fallback={<Loading />}>
+            <Collection
+              data={events?.data}
+              emptyTitle="No events found"
+              emptyStateSubtext="come back later"
+              collectionType="All_Events"
+              page={page}
+              totalPages={events?.totalPages}
+            />
+          </Suspense>
         </div>
       </section>
     </>

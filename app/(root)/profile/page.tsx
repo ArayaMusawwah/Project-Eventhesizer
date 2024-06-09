@@ -6,6 +6,8 @@ import { IOrder } from "@/lib/database/models/order.model"
 import { SearchParamProps } from "@/types"
 import { auth } from "@clerk/nextjs/server"
 import Link from "next/link"
+import { Suspense } from "react"
+import Loading from "../loading"
 
 const ProfilePage = async ({ searchParams }: SearchParamProps) => {
   const { sessionClaims } = auth()
@@ -33,15 +35,17 @@ const ProfilePage = async ({ searchParams }: SearchParamProps) => {
       </section>
 
       <section className="wrapper my-8">
-        <Collection
-          data={orderedEvents}
-          emptyTitle="No events tickets purchased yet"
-          emptyStateSubtext="No worries - plenty of exciting events to explore"
-          collectionType="My_Tickets"
-          page={ordersPage}
-          urlParamName="ordersPage"
-          totalPages={orders?.totalPages}
-        />
+        <Suspense fallback={<Loading />}>
+          <Collection
+            data={orderedEvents}
+            emptyTitle="No events tickets purchased yet"
+            emptyStateSubtext="No worries - plenty of exciting events to explore"
+            collectionType="My_Tickets"
+            page={ordersPage}
+            urlParamName="ordersPage"
+            totalPages={orders?.totalPages}
+          />
+        </Suspense>
       </section>
 
       {/* Events Organized */}
@@ -55,15 +59,17 @@ const ProfilePage = async ({ searchParams }: SearchParamProps) => {
       </section>
 
       <section className="wrapper my-8">
-        <Collection
-          data={organizedEvents?.data}
-          emptyTitle="No events have been created yet"
-          emptyStateSubtext="Go create some now"
-          collectionType="Events_Organized"
-          page={eventsPage}
-          urlParamName="eventsPage"
-          totalPages={organizedEvents?.totalPages}
-        />
+        <Suspense fallback={<Loading />}>
+          <Collection
+            data={organizedEvents?.data}
+            emptyTitle="No events have been created yet"
+            emptyStateSubtext="Go create some now"
+            collectionType="Events_Organized"
+            page={eventsPage}
+            urlParamName="eventsPage"
+            totalPages={organizedEvents?.totalPages}
+          />
+        </Suspense>
       </section>
     </>
   )

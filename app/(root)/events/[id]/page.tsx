@@ -8,6 +8,8 @@ import { IEvent } from "@/lib/database/models/event.model"
 import { formatDateTime } from "@/lib/utils"
 import { SearchParamProps } from "@/types"
 import Image from "next/image"
+import { Suspense } from "react"
+import Loading from "../../loading"
 
 const DetailEventPage = async ({
   params: { id },
@@ -103,15 +105,16 @@ const DetailEventPage = async ({
 
       <section className="wrapper my-8 flex flex-col gap-8 md:gap-12">
         <h2 className="h2-bold">Related Event</h2>
-
-        <Collection
-          data={relatedEvents?.data}
-          emptyTitle="No events found"
-          emptyStateSubtext="come back later"
-          collectionType="All_Events"
-          page={searchParams.page as string}
-          totalPages={relatedEvents?.totalPages}
-        />
+        <Suspense fallback={<Loading />}>
+          <Collection
+            data={relatedEvents?.data}
+            emptyTitle="No events found"
+            emptyStateSubtext="come back later"
+            collectionType="All_Events"
+            page={searchParams.page as string}
+            totalPages={relatedEvents?.totalPages}
+          />
+        </Suspense>
       </section>
     </>
   )
