@@ -1,13 +1,4 @@
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from '@/components/ui/select'
-import { ICategory } from '@/lib/database/models/category.model'
-import { startTransition, useEffect, useState } from 'react'
-import {
   AlertDialog,
   AlertDialogAction,
   AlertDialogCancel,
@@ -17,12 +8,21 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger
-} from '@/components/ui/alert-dialog'
-import { Input } from '../ui/input'
+} from "@/components/ui/alert-dialog"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from "@/components/ui/select"
 import {
   createCategory,
   getAllCategories
-} from '@/lib/actions/category.actions'
+} from "@/lib/actions/category.actions"
+import { ICategory } from "@/lib/database/models/category.model"
+import { startTransition, useEffect, useState } from "react"
+import { Input } from "../ui/input"
 
 type Props = {
   onChangeHandler?: (value: string) => void
@@ -57,7 +57,7 @@ const Dropdown = ({ onChangeHandler, value }: Props) => {
             <SelectItem
               key={category._id}
               value={category._id}
-              className="p-regular-14 select-item"
+              className="p-regular-14 select-item capitalize"
             >
               {category.name}
             </SelectItem>

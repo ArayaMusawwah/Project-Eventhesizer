@@ -1,14 +1,13 @@
-import CheckoutButton from '@/components/shared/CheckoutButton'
-import Collection from '@/components/shared/Collection'
+import CheckoutButton from "@/components/shared/CheckoutButton"
+import Collection from "@/components/shared/Collection"
 import {
   getEventById,
   getRelatedEventsByCategory
-} from '@/lib/actions/event.actions'
-import { IEvent } from '@/lib/database/models/event.model'
-import { formatDateTime } from '@/lib/utils'
-import { SearchParamProps } from '@/types'
-import Image from 'next/image'
-import React from 'react'
+} from "@/lib/actions/event.actions"
+import { IEvent } from "@/lib/database/models/event.model"
+import { formatDateTime } from "@/lib/utils"
+import { SearchParamProps } from "@/types"
+import Image from "next/image"
 
 const DetailEventPage = async ({
   params: { id },
@@ -40,7 +39,7 @@ const DetailEventPage = async ({
               <div className="flex flex-col gap-3 sm:items-center md:flex-row">
                 <div className="flex gap-3">
                   <p className="p-bold-20 rounded-full bg-green-500/50 px-5 py-2 text-green-700">
-                    {event.isFree ? 'FREE' : `$${event.price}`}
+                    {event.isFree ? "FREE" : `$${event.price}`}
                   </p>
                   <p className="p-medium-20 rounded-full bg-grey-500/10 px-4 py-2.5 text-grey-500">
                     {event.category.name}
@@ -48,7 +47,7 @@ const DetailEventPage = async ({
                 </div>
 
                 <p className="p-medium-18 ml-2 mt-2 sm:mt-0">
-                  by{' '}
+                  by{" "}
                   <span className="text-primary-500">
                     {event.organizer.firstName} {event.organizer.lastName}
                   </span>
@@ -69,12 +68,12 @@ const DetailEventPage = async ({
                 />
                 <div className="p-medium-16 lg:p-regular-20 flex flex-wrap items-center">
                   <p>
-                    {formatDateTime(event.startDate).dateOnly} -{' '}
-                    {formatDateTime(event.startDate).timeOnly} -{' '}
+                    {formatDateTime(event.startDate).dateOnly} -{" "}
+                    {formatDateTime(event.startDate).timeOnly} -{" "}
                   </p>
                   <p>
-                    {' '}
-                    {formatDateTime(event.endDate).dateOnly} -{' '}
+                    {" "}
+                    {formatDateTime(event.endDate).dateOnly} -{" "}
                     {formatDateTime(event.endDate).timeOnly}
                   </p>
                 </div>
@@ -110,7 +109,6 @@ const DetailEventPage = async ({
           emptyTitle="No events found"
           emptyStateSubtext="come back later"
           collectionType="All_Events"
-          limit={3}
           page={searchParams.page as string}
           totalPages={relatedEvents?.totalPages}
         />
