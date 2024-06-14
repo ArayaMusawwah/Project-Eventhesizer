@@ -1,20 +1,20 @@
-import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
-import Image from 'next/image'
-import Link from 'next/link'
-import { Button } from '../ui/button'
-import NavItems from './NavItems'
-import MobileNav from './MobileNav'
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs"
+import Image from "next/image"
+import Link from "next/link"
+import { Button } from "../ui/button"
+import MobileNav from "./MobileNav"
+import NavItems from "./NavItems"
 
 const Header = () => {
   return (
     <header className="w-full border-b">
       <div className="wrapper flex items-center justify-between ">
-        <Link href="/" className="w-36">
+        <Link href="/">
           <Image
-            src="/assets/images/logo.svg"
+            src="/assets/images/newLogo.png"
             alt="Eventhesizer Logo"
-            width={128}
-            height={38}
+            width={180}
+            height={50}
           />
         </Link>
 
@@ -26,8 +26,8 @@ const Header = () => {
 
         <div className="flex w-32 justify-end gap-3">
           <SignedOut>
-            <Button asChild className="rounded-full" size={'lg'}>
-              <Link href={'/sign-in'}>Login</Link>
+            <Button asChild className="rounded-full" size={"lg"}>
+              <Link href={"/sign-in"}>Login</Link>
             </Button>
           </SignedOut>
           <SignedIn>
